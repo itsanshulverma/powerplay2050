@@ -1,118 +1,186 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Inter } from 'next/font/google';
+import { useState, useEffect, ChangeEvent } from 'react';
+import citiesData from '@/data/data.json';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
+
+type T = keyof typeof citiesData;
+
+const multiplyingFactors: Record<number, number> = {
+	1: 0.5,
+	2: 0.5,
+	3: 1,
+	4: 1,
+	5: 1.5,
+	6: 1.5,
+	7: 2,
+	8: 2,
+};
 
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	const [name, setName] = useState('');
+	const [citiesToSelect, setCitiesToSelect] = useState(['']);
+	const [selectedCity, setSelectedCity] = useState('');
+	const [selectedCities, setSelectedCities] = useState<string[]>([]);
+	const [showModal, setShowModal] = useState(false);
+	const [sharePrice, setSharePrice] = useState(50);
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	useEffect(() => {
+		const cities = Object.keys(citiesData);
+		setCitiesToSelect(cities);
+	}, []);
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	useEffect(() => {
+		setSelectedCity(citiesToSelect[0]);
+	}, [citiesToSelect]);
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	useEffect(() => {}, [selectedCities]);
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setName(e.target.value);
+	};
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	const handleAddCity = () => {
+		if (selectedCity !== '' && selectedCity !== undefined) {
+			setSelectedCities((prev) => [...prev, selectedCity]);
+			setCitiesToSelect((prev) => prev.filter((city) => city !== selectedCity));
+			setSelectedCity('');
+		}
+	};
+
+	const handleSubmit = () => {
+		const highestPrices: Record<number, number> = {};
+		const highestPriceCities: Record<number, string> = {};
+		selectedCities.forEach((cityName) => {
+			const city = citiesData[cityName as keyof typeof citiesData];
+			if (city) {
+				const { price, 'color-code': colorCode } = city;
+				if (
+					highestPrices[colorCode] === undefined ||
+					price > highestPrices[colorCode]
+				) {
+					highestPrices[colorCode] = price;
+					highestPriceCities[colorCode] = cityName;
+				}
+			}
+		});
+		let totalPrice = 50;
+		for (const colorCode in highestPriceCities) {
+			const price = highestPrices[colorCode] || 0;
+			const factor = multiplyingFactors[colorCode] || 1;
+			totalPrice += price * factor;
+		}
+
+		setSharePrice(totalPrice);
+		setShowModal(true);
+	};
+
+	return (
+		<div className="grid place-items-center h-screen">
+			<h1 className="font-bold text-lg mt-6 sm:text-4xl sm:m-1">
+				PowerPlay 2050 | Share Price Calculator
+			</h1>
+			<div className="flex flex-row gap-5 flex-wrap justify-items-center items-center justify-center content-center">
+				<form className="card card-normal w-96 bg-base-100 shadow-xl self-center m-4">
+					<div className="card-body">
+						<div>
+							<label htmlFor="name">Your Name:</label>
+							<input
+								className="input input-bordered w-full max-w-xs mt-2"
+								type="text"
+								id="name"
+								name="name"
+								value={name}
+								onChange={handleInputChange}
+							/>
+						</div>
+						<div>
+							<h2 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+								Cities:
+							</h2>
+							<select
+								className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								onChange={(e) => setSelectedCity(e.target.value)}
+							>
+								{citiesToSelect.map((city) => (
+									<option key={city} value={city}>
+										{city}
+									</option>
+								))}
+							</select>
+							<button
+								className={`${
+									citiesToSelect.length === 0
+										? 'cursor-not-allowed opacity-50'
+										: ''
+								} btn mt-4 mb-1`}
+								disabled={citiesToSelect.length === 0}
+								type="button"
+								onClick={handleAddCity}
+							>
+								Add City
+							</button>
+						</div>
+					</div>
+				</form>
+				{selectedCities.length > 0 && (
+					<div className="card card-normal w-96 bg-base-100 shadow-xl self-center m-4">
+						<div className="card-body">
+							<h1 className="font-bold text-lg">Selected Cities</h1>
+							<ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto sm:max-h-32">
+								{selectedCities.map((city) => (
+									<li key={city} value={city} className="p-3 sm:p-4">
+										{city}
+									</li>
+								))}
+							</ul>
+							<button
+								onClick={handleSubmit}
+								className="btn btn-active btn-neutral"
+							>
+								Calculate
+							</button>
+						</div>
+					</div>
+				)}
+			</div>
+			{showModal ? (
+				<>
+					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+						<div className="card card-normal w-96 bg-base-100 shadow-xl self-center outline-none focus:outline-none m-4">
+							<div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+								<h3 className="text-3xl font-semibold">{name}</h3>
+								<button
+									className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+									onClick={() => setShowModal(false)}
+								>
+									<span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+										×
+									</span>
+								</button>
+							</div>
+							<div className="relative p-6 flex-auto">
+								<p className="my-4 text-blueGray-500 text-xl leading-relaxed">
+									Your share price is: ₹{sharePrice}
+								</p>
+							</div>
+							<div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+								<button
+									className="btn"
+									type="button"
+									onClick={() => {
+										setSharePrice(50);
+										setShowModal(false);
+									}}
+								>
+									Close
+								</button>
+							</div>
+						</div>
+					</div>
+					<div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+				</>
+			) : null}
+		</div>
+	);
 }

@@ -1,0 +1,102 @@
+{
+	"Zimbabwe": {
+		"price": 60,
+		"color-code": 1
+	}, 
+	"Kenya": {
+		"price": 60,
+		"color-code": 1
+	},
+
+	"Turkey": {
+		"price": 100,
+		"color-code": 2
+	},
+	"Greece": {
+		"price": 100,
+		"color-code": 2
+	}, 
+	"Bulgaria": {
+		"price": 120,
+		"color-code": 2
+	},
+
+	"Portugal": {
+		"price": 140,
+		"color-code": 3
+	},
+	"Spain": {
+		"price": 140,
+		"color-code": 3
+	}, 
+	"Italy": {
+		"price": 160,
+		"color-code": 3
+	},
+
+	"Ukraine": {
+		"price": 180,
+		"color-code": 4
+	},
+	"Poland": {
+		"price": 180,
+		"color-code": 4
+	}, 
+	"Russia": {
+		"price": 200,
+		"color-code": 4
+	},
+
+	"Finland": {
+		"price": 220,
+		"color-code": 5
+	},
+	"Norway": {
+		"price": 220,
+		"color-code": 5
+	}, 
+	"Sweden": {
+		"price": 240,
+		"color-code": 5
+	},
+
+	"France": {
+		"price": 260,
+		"color-code": 6
+	},
+	"UK": {
+		"price": 260,
+		"color-code": 6
+	}, 
+	"Germany": {
+		"price": 280,
+		"color-code": 6
+	},
+	"Netherlands": {
+		"price": 280,
+		"color-code": 6
+	},
+
+	"Canada": {
+		"price": 300,
+		"color-code": 7
+	},
+	"Mexico": {
+		"price": 300,
+		"color-code": 7
+	}, 
+	"USA": {
+		"price": 320,
+		"color-code": 7
+	},
+	
+	"China": {
+		"price": 350,
+		"color-code": 8
+	},
+	"India": {
+		"price": 400,
+		"color-code": 8
+	}
+}
+
